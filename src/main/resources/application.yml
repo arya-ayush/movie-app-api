@@ -1,11 +1,11 @@
 database:
   driver-class-name: org.postgresql.Driver
-  jdbc-url: jdbc:postgres://vliuzcyuptdpiu:dc88916b67c93865876cc29425e078b44157045dd1efecdbeeb69a2e7ba4f64a@ec2-52-71-85-210.compute-1.amazonaws.com:5432/d3e9p000r6gdl1
-  username: vliuzcyuptdpiu
-  password: dc88916b67c93865876cc29425e078b44157045dd1efecdbeeb69a2e7ba4f64a
+  jdbc-url: jdbc:postgres://hjhsjdulzdcstk:b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd@ec2-52-86-73-86.compute-1.amazonaws.com:5432/d5lmhq6fu5pejc
+  username: hjhsjdulzdcstk
+  password: b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd
 
 spring:
   datasource:
-    url: postgres://vliuzcyuptdpiu:dc88916b67c93865876cc29425e078b44157045dd1efecdbeeb69a2e7ba4f64a@ec2-52-71-85-210.compute-1.amazonaws.com:5432/d3e9p000r6gdl1
-    username: vliuzcyuptdpiu
-    password: dc88916b67c93865876cc29425e078b44157045dd1efecdbeeb69a2e7ba4f64a
+    url: postgres://hjhsjdulzdcstk:b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd@ec2-52-86-73-86.compute-1.amazonaws.com:5432/d5lmhq6fu5pejc
+    username: hjhsjdulzdcstk
+    password: b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd
