@@ -3,3 +3,9 @@ database:
   jdbc-url: jdbc:postgres://lenhwhshtjdbpt:38951b7fd58c8d298a421a27852228e813db004e2f3559e9748fd569f58cfa76@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d764bh0mrt5683
   username: lenhwhshtjdbpt
   password: 38951b7fd58c8d298a421a27852228e813db004e2f3559e9748fd569f58cfa76
+
+spring:
+  datasource:
+    url: postgres://lenhwhshtjdbpt:38951b7fd58c8d298a421a27852228e813db004e2f3559e9748fd569f58cfa76@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d764bh0mrt5683
+    username: lenhwhshtjdbpt
+    password: 38951b7fd58c8d298a421a27852228e813db004e2f3559e9748fd569f58cfa76
