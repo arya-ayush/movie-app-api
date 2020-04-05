@@ -1,0 +1,45 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{ISO8601} %15([%thread]) %-5level %-40logger{36}:%4L - %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/Users/ayusharya/workspace/dev/kwench.in/movie-app/log/movie-app.%d{yyyy-MM-dd}.log.gz</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/var/log/movie-app/movie-app.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+      <maxHistory>365</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <timestamp/>
+        <pattern>
+          <pattern>
+            {
+            "level": "%level",
+            "class": "%logger",
+            "line": "%line",
+            "message": "%message"
+            }
+          </pattern>
+        </pattern>
+      </providers>
+    </encoder>
+  </appender>
+
+  <logger name="org.springframework" level="WARN" />
+  <logger name="org.apache.ibatis" level="WARN" />
+  <logger name="org.mybatis.spring" level="WARN" />
+  <logger name="java.sql" level="INFO" />
+  <logger name="org.apache.commons" level="WARN" />
+  <logger name="org.eclipse.jetty" level="WARN" />
+  <logger name="org.apache.tomcat" level="WARN" />
+
+  <root>
+    <appender-ref ref="STDOUT" />
+    <!--    <appender-ref ref="FILE" />-->
+  </root>
+
+</configuration>
