@@ -7,7 +7,7 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>/Users/ayusharya/workspace/dev/kwench.in/movie-app/log/movie-app.%d{yyyy-MM-dd}.log.gz</file>
+    <file>/app/log/movie-app.%d{yyyy-MM-dd}.log.gz</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>/var/log/movie-app/movie-app.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
       <maxHistory>365</maxHistory>
