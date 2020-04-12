@@ -45,7 +45,13 @@ public class YoutubeCrawlerService {
       return null;
     }
     Elements tags = elements.get(0).getElementsByTag("li");
-    return tags.get(1).html();
+    if (CollectionUtils.isEmpty(tags)) {
+      return null;
+    }
+    if (tags.size() > 1) {
+      return tags.get(1).html();
+    }
+    return null;
   }
 
   public String getVideoId(Element element) {
