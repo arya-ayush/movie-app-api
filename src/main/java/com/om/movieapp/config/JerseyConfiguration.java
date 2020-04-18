@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.om.movieapp.controller.PingResource;
 import com.om.movieapp.controller.YoutubeScrapingResource;
+import com.om.movieapp.filter.ResponseFilter;
 
 @Component
 @ApplicationPath("v1")
@@ -15,5 +16,6 @@ public class JerseyConfiguration extends ResourceConfig {
   public JerseyConfiguration() {
     register(PingResource.class);
     register(YoutubeScrapingResource.class);
+    register(ResponseFilter.class);
   }
 }
