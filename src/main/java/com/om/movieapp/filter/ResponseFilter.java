@@ -11,7 +11,7 @@ public class ResponseFilter implements ContainerResponseFilter {
   public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext response)
       throws IOException {
     response.getHeaders().add("Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, accessToken, access-token, If-Modified-Since, signed-request");
+        "Origin, X-Requested-With, Content-Type, Accept, apiKey, If-Modified-Since, signed-request");
     response.getHeaders().add("Access-Control-Allow-Origin", "*");
     response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     response.getHeaders().add("Access-Control-Expose-Headers", "Content-Disposition");
