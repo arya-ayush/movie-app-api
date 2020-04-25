@@ -37,7 +37,7 @@ public class CompanyResource {
     Company company = new Company();
     company.setName("Omtech");
 //    company.setOtherApps(otherApps);
-//    company.setWebsites(websites);
+    company.setWebsites(websites);
     return Response.ok(company).build();
   }
 }
