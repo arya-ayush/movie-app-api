@@ -31,7 +31,7 @@ public class CompanyResource {
           new String(Messages.INCORRECT_PARAMETERS.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
     }
     List<String> otherApps = new ArrayList<>();
-    otherApps.add("com.om.fullmovie");
+    otherApps.add("com.omApps.uChat");
     List<String> websites = new ArrayList<>();
     websites.add("http://freefullmovies.in");
     Company company = new Company();
