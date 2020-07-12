@@ -34,14 +34,14 @@ public class CompanyResource {
     List<App> otherApps = new ArrayList<>();
     App uChatApp = new App();
     uChatApp.setPackageName("com.omApps.uChat");
-    uChatApp.setName("uChat");
+    uChatApp.setName("Video Chat-Make Friends, Meet People, Social Media");
     otherApps.add(uChatApp);
     List<String> websites = new ArrayList<>();
     websites.add("http://freefullmovies.in");
     App app = new App();
     app.setVersionCode(45);
     app.setPackageName("com.om.fullmovie");
-    app.setVersion("3.9.1");
+    app.setVersion("4.0.0");
     Company company = new Company();
     company.setName("Omtech");
     company.setOtherApps(otherApps);
