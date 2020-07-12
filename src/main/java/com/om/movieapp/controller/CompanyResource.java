@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
 
 import com.om.movieapp.exception.ApplicationException;
+import com.om.movieapp.model.App;
 import com.om.movieapp.model.Company;
 import com.om.movieapp.utils.messages.Messages;
 
@@ -30,13 +31,21 @@ public class CompanyResource {
       throw new ApplicationException(HttpStatus.BAD_REQUEST_400,
           new String(Messages.INCORRECT_PARAMETERS.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
     }
-    List<String> otherApps = new ArrayList<>();
-    otherApps.add("com.omApps.uChat");
+    List<App> otherApps = new ArrayList<>();
+    App uChatApp = new App();
+    uChatApp.setPackageName("com.omApps.uChat");
+    uChatApp.setName("uChat");
+    otherApps.add(uChatApp);
     List<String> websites = new ArrayList<>();
     websites.add("http://freefullmovies.in");
+    App app = new App();
+    app.setVersionCode(45);
+    app.setPackageName("com.om.fullmovie");
+    app.setVersion("3.9.1");
     Company company = new Company();
     company.setName("Omtech");
     company.setOtherApps(otherApps);
+    company.setApp(app);
     company.setWebsites(websites);
     return Response.ok(company).build();
   }

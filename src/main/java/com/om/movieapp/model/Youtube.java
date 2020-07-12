@@ -1,6 +1,7 @@
 package com.om.movieapp.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.om.movieapp.model.youtube.Thumbnails;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Youtube {
@@ -11,7 +12,7 @@ public class Youtube {
   private String videoId;
   private String viewsCount;
   private String publishDate;
-  private Thumbnail thumbnail;
+  private Thumbnails thumbnails;
 
   /**
    * @return title
@@ -100,14 +101,14 @@ public class Youtube {
   /**
    * @return thumbnail
    */
-  public Thumbnail getThumbnail() {
-    return thumbnail;
+  public Thumbnails getThumbnails() {
+    return thumbnails;
   }
 
   /**
-   * @param thumbnail the thumbnail to set
+   * @param thumbnails the thumbnail to set
    */
-  public void setThumbnail(Thumbnail thumbnail) {
-    this.thumbnail = thumbnail;
+  public void setThumbnails(Thumbnails thumbnails) {
+    this.thumbnails = thumbnails;
   }
 }

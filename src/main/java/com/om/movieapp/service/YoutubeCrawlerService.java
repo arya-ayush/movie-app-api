@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import com.om.movieapp.model.Thumbnail;
+import com.om.movieapp.model.youtube.Thumbnails;
 
 @Service
 public class YoutubeCrawlerService {
@@ -75,20 +75,20 @@ public class YoutubeCrawlerService {
     return tags.get(0).html();
   }
 
-  public Thumbnail getThumbnail(Element element) {
+  public Thumbnails getThumbnail(Element element) {
     Elements elements = element.getElementsByTag("img");
     if (CollectionUtils.isEmpty(elements)) {
       return null;
     }
     element = elements.get(0);
-    Thumbnail thumbnail = new Thumbnail();
-    thumbnail.setHeight(Integer.parseInt(element.attr("height")));
-    thumbnail.setWidth(Integer.parseInt(element.attr("width")));
+    Thumbnails thumbnails = new Thumbnails();
+    thumbnails.setHeight(Integer.parseInt(element.attr("height")));
+    thumbnails.setWidth(Integer.parseInt(element.attr("width")));
     String url = element.attr("src");
     if (url.contains(".gif")) {
       url = element.attr("data-thumb");
     }
-    thumbnail.setUrl(url);
-    return thumbnail;
+    thumbnails.setUrl(url);
+    return thumbnails;
   }
 }

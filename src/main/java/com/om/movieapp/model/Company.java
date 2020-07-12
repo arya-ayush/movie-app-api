@@ -10,7 +10,8 @@ public class Company {
   private Integer id;
   private String name;
   private List<String> websites;
-  private List<String> otherApps;
+  private List<App> otherApps;
+  private App app;
 
   /**
    * @return id
@@ -57,14 +58,22 @@ public class Company {
   /**
    * @return otherApps
    */
-  public List<String> getOtherApps() {
+  public List<App> getOtherApps() {
     return otherApps;
   }
 
   /**
    * @param otherApps the otherApps to set
    */
-  public void setOtherApps(List<String> otherApps) {
+  public void setOtherApps(List<App> otherApps) {
     this.otherApps = otherApps;
+  }
+
+  public App getApp() {
+    return app;
+  }
+
+  public void setApp(App app) {
+    this.app = app;
   }
 }

@@ -1,6 +1,6 @@
-package com.om.movieapp.model;
+package com.om.movieapp.model.youtube;
 
-public class Thumbnail {
+public class Thumbnails {
 
   private String url;
   private Integer width;
