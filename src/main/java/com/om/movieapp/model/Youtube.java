@@ -12,7 +12,7 @@ public class Youtube {
   private String videoId;
   private String viewsCount;
   private String publishDate;
-  private Thumbnails thumbnails;
+  private Thumbnails thumbnail;
 
   /**
    * @return title
@@ -101,14 +101,14 @@ public class Youtube {
   /**
    * @return thumbnail
    */
-  public Thumbnails getThumbnails() {
-    return thumbnails;
+  public Thumbnails getThumbnail() {
+    return thumbnail;
   }
 
   /**
-   * @param thumbnails the thumbnail to set
+   * @param thumbnail the thumbnail to set
    */
-  public void setThumbnails(Thumbnails thumbnails) {
-    this.thumbnails = thumbnails;
+  public void setThumbnail(Thumbnails thumbnail) {
+    this.thumbnail = thumbnail;
   }
 }

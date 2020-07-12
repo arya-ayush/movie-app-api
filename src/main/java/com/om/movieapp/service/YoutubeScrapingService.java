@@ -89,7 +89,7 @@ public class YoutubeScrapingService {
             if (youtubeData.getThumbnail() != null &&
                 !CollectionUtils.isEmpty(youtubeData.getThumbnail().getThumbnails())) {
               Thumbnails thumbnails = youtubeData.getThumbnail().getThumbnails().get(0);
-              youtube.setThumbnails(thumbnails);
+              youtube.setThumbnail(thumbnails);
             }
             youtubeList.add(youtube);
           }
@@ -120,7 +120,7 @@ public class YoutubeScrapingService {
         youtube.setTitle(youtubeCrawlerService.getTitle(metaElement));
         youtube.setDescription(youtubeCrawlerService.getDescription(metaElement));
         youtube.setPublishDate(youtubeCrawlerService.getPublishDate(metaElement));
-        youtube.setThumbnails(youtubeCrawlerService.getThumbnail(thumbnailElement));
+        youtube.setThumbnail(youtubeCrawlerService.getThumbnail(thumbnailElement));
         youtube.setDuration(youtubeCrawlerService.getDuration(metaElement));
         youtube.setViewsCount(youtubeCrawlerService.getViewsCount(element));
         youtubeList.add(youtube);
