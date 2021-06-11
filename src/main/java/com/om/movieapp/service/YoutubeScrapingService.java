@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.om.movieapp.utils.JSONUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.Jsoup;
@@ -40,6 +41,7 @@ public class YoutubeScrapingService {
           .get();
       // split script tag that contains relevant youtube data
       Elements elements = document.getElementsByTag("script");
+//      LOG.debug("**** <{}>", elements.toString());
       String elementString = null;
       for (Element element : elements) {
         elementString = element.toString();
@@ -49,6 +51,7 @@ public class YoutubeScrapingService {
       }
       if (StringUtils.isNotBlank(elementString)) {
         youtubeList = parseYoutubeJson(elementString);
+//        LOG.debug("youtubeList *** <{}>", new Gson().toJson(youtubeList));
       }
     } catch (IOException e) {
       LOG.error("fetchResults - Failed to create connection with exception <{}>", ExceptionUtils.getStackTrace(e));
@@ -74,9 +77,11 @@ public class YoutubeScrapingService {
             if (youtubeData.getTitle() != null && !CollectionUtils.isEmpty(youtubeData.getTitle().getRuns())) {
               youtube.setTitle(youtubeData.getTitle().getRuns().get(0).getText());
             }
-            if (youtubeData.getTitle() != null && !CollectionUtils.isEmpty(youtubeData.getTitle().getRuns())) {
-              youtube.setDescription(youtubeData.getDescriptionSnippet().getRuns().get(0).getText());
-            }
+//            LOG.debug("youtube - **** <{}>", new Gson().toJson(youtube));
+//            if (youtubeData.getTitle() != null && !CollectionUtils.isEmpty(youtubeData.getDescriptionSnippet().getRuns())) {
+//              youtube.setDescription(youtubeData.getDescriptionSnippet().getRuns().get(0).getText());
+//            }
+            youtube.setDescription(youtube.getTitle());
             if (youtubeData.getLengthText() != null) {
               youtube.setDuration(youtubeData.getLengthText().getSimpleText());
             }
@@ -95,7 +100,7 @@ public class YoutubeScrapingService {
           }
         } catch (Exception e) {
           // TODO check this why these exceptions are occurring
-          LOG.debug("parseYoutubeJson - ****** <{}>", videoData);
+//          LOG.debug("parseYoutubeJson - ****** <{}>", videoData);
         }
       }
     }
