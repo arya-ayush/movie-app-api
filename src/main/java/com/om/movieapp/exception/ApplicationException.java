@@ -1,10 +1,10 @@
 package com.om.movieapp.exception;
 
+import com.om.movieapp.model.AppResponse;
+
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.om.movieapp.model.AppResponse;
 
 /**
  * Class for Application Exception

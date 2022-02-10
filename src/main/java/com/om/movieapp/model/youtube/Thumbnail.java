@@ -1,8 +1,8 @@
 package com.om.movieapp.model.youtube;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Thumbnail {

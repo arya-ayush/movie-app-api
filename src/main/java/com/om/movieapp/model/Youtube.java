@@ -1,18 +1,33 @@
 package com.om.movieapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.om.movieapp.model.youtube.Thumbnails;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Youtube {
+import java.io.Serializable;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Youtube implements Serializable {
+
+  private static final long serialVersionUID = -728273679655974753L;
+
+  private int id;
   private String title;
   private String description;
   private String duration;
   private String videoId;
+  @JsonProperty("youtube_views_count")
   private String viewsCount;
+  @JsonProperty("publish_date")
   private String publishDate;
   private Thumbnails thumbnail;
+  private int likes;
+  private int dislikes;
+  @JsonProperty("app_views_count")
+  private int appViewsCount;
+
 
   /**
    * @return title
@@ -110,5 +125,37 @@ public class Youtube {
    */
   public void setThumbnail(Thumbnails thumbnail) {
     this.thumbnail = thumbnail;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public int getLikes() {
+    return likes;
+  }
+
+  public void setLikes(int likes) {
+    this.likes = likes;
+  }
+
+  public int getDislikes() {
+    return dislikes;
+  }
+
+  public void setDislikes(int dislikes) {
+    this.dislikes = dislikes;
+  }
+
+  public int getAppViewsCount() {
+    return appViewsCount;
+  }
+
+  public void setAppViewsCount(int appViewsCount) {
+    this.appViewsCount = appViewsCount;
   }
 }

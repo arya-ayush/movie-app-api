@@ -1,28 +1,21 @@
 package com.om.movieapp.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import com.om.movieapp.exception.ApplicationException;
+import com.om.movieapp.model.Youtube;
+import com.om.movieapp.service.YoutubeScrapingService;
+import com.om.movieapp.utils.constant.Constants;
+import com.om.movieapp.utils.messages.Messages;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.om.movieapp.exception.ApplicationException;
-import com.om.movieapp.model.Youtube;
-import com.om.movieapp.service.YoutubeScrapingService;
-import com.om.movieapp.utils.constant.Constants;
-import com.om.movieapp.utils.messages.Messages;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Path("youtube")
 @Produces(MediaType.APPLICATION_JSON)

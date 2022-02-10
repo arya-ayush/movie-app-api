@@ -1,10 +1,9 @@
 package com.om.movieapp.filter;
 
-import java.io.IOException;
-
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import java.io.IOException;
 
 public class ResponseFilter implements ContainerResponseFilter {
   @Override

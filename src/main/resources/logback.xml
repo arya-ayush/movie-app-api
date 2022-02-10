@@ -7,9 +7,9 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>/app/log/movie-app.%d{yyyy-MM-dd}.log.gz</file>
+    <file>/Users/a0a0iy0/myApps/log/movie-app.%d{yyyy-MM-dd}.log.gz</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>/var/log/movie-app/movie-app.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+      <fileNamePattern>/Users/a0a0iy0/myApps/log/movie-app.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
       <maxHistory>365</maxHistory>
     </rollingPolicy>
     <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -38,8 +38,8 @@
   <logger name="org.apache.tomcat" level="WARN" />
 
   <root>
-<!--    <appender-ref ref="STDOUT" />-->
-        <appender-ref ref="FILE" />
+    <appender-ref ref="STDOUT" />
+<!--        <appender-ref ref="FILE" />-->
   </root>
 
 </configuration>

@@ -1,5 +1,6 @@
 package com.om.movieapp.service;
 
+import com.om.movieapp.model.youtube.Thumbnails;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -7,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-
-import com.om.movieapp.model.youtube.Thumbnails;
 
 @Service
 public class YoutubeCrawlerService {

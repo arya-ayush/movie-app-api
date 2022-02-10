@@ -1,10 +1,10 @@
 package com.om.movieapp.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.om.movieapp.utils.JSONUtil;
+import com.google.gson.Gson;
+import com.om.movieapp.model.Youtube;
+import com.om.movieapp.model.youtube.Thumbnails;
+import com.om.movieapp.model.youtube.YoutubeData;
+import com.om.movieapp.utils.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.Jsoup;
@@ -17,11 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.google.gson.Gson;
-import com.om.movieapp.model.Youtube;
-import com.om.movieapp.model.youtube.Thumbnails;
-import com.om.movieapp.model.youtube.YoutubeData;
-import com.om.movieapp.utils.constant.Constants;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class YoutubeScrapingService {
