@@ -31,9 +31,9 @@ public class CompanyResource {
     uChatApp.setName("Video Chat-Make Friends, Meet People, Social Media");
     otherApps.add(uChatApp);
     App app = new App();
-    app.setVersionCode(45);
+    app.setVersionCode(48);
     app.setPackageName("com.om.fullmovie");
-    app.setVersion("4.0.0");
+    app.setVersion("4.1.1");
     Company company = new Company();
     company.setName("Omtech");
     company.setOtherApps(otherApps);
