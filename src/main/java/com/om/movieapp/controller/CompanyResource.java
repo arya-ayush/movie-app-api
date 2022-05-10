@@ -30,6 +30,10 @@ public class CompanyResource {
     uChatApp.setPackageName("com.omApps.uChat");
     uChatApp.setName("Video Chat-Make Friends, Meet People, Social Media");
     otherApps.add(uChatApp);
+    App statusSaverApp = new App();
+    uChatApp.setPackageName("com.om.statussaver");
+    uChatApp.setName("Status Saver - All in One");
+    otherApps.add(statusSaverApp);
     App app = new App();
     app.setVersionCode(48);
     app.setPackageName("com.om.fullmovie");

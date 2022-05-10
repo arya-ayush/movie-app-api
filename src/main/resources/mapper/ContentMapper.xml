@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.om.movieapp.dao.ContentDao">
+
+    <select id="getHighlights" resultType="Highlight">
+        SELECT
+            id,
+            videoid as videoId,
+            title,
+            description,
+            url,
+            poster as posterJson
+        FROM
+            highlight
+        WHERE
+            end_date is null
+        ORDER BY
+            sort_order
+    </select>
+
+</mapper>
