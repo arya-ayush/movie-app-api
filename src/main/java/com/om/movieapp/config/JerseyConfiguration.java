@@ -1,8 +1,6 @@
 package com.om.movieapp.config;
 
-import com.om.movieapp.controller.CompanyResource;
-import com.om.movieapp.controller.PingResource;
-import com.om.movieapp.controller.YoutubeScrapingResource;
+import com.om.movieapp.controller.*;
 import com.om.movieapp.filter.ResponseFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
@@ -17,6 +15,8 @@ public class JerseyConfiguration extends ResourceConfig {
     register(PingResource.class);
     register(YoutubeScrapingResource.class);
     register(CompanyResource.class);
+    register(ContentResource.class);
+    register(AuthenticationResource.class);
     register(ResponseFilter.class);
   }
 }

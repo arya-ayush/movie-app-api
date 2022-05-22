@@ -8,10 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.nio.charset.StandardCharsets;
@@ -25,6 +22,7 @@ public class ContentResource {
     private ContentService contentService;
 
     @GET
+    @Path("highlights")
     public Response getHighlights(@HeaderParam("apiKey") String apiKey) {
         if (StringUtils.isEmpty(apiKey)) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST_400,
