@@ -1,8 +1,8 @@
 package com.om.movieapp.controller;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -46,6 +46,7 @@ public class AuthenticationResource {
                 String givenName = (String) payload.get("given_name");
             } else {
                 // Invalid ID token
+                throw new ApplicationException(HttpStatus.BAD_REQUEST.value(), "Fail to parse ID Token");
             }
         } catch (GeneralSecurityException | IOException e) {
             throw new ApplicationException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
