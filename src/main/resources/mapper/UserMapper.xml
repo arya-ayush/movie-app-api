@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.om.movieapp.dao.UserDao">
+
+    <insert id="insertUser" parameterType="User">
+        <selectKey resultType="Integer" keyProperty="id" order="BEFORE">
+            SELECT nextval('user_id_seq') AS id
+        </selectKey>
+        INSERT INTO mv_user (id, uuid, app_version, version_code, device, locale)
+        VALUES(
+            #{id},
+            #{uuid},
+            #{version},
+            #{versionCode},
+            #{device},
+            #{locale}
+        )
+    </insert>
+
+
+    <select id="getUser" resultType="User" parameterType="String">
+        SELECT
+            uuid,
+            app_version as version,
+            version_code as versionCode,
+            locale,
+            show_tutorial as showTutorial
+        FROM
+            mv_user
+        WHERE
+            uuid = #{uuid}
+    </select>
+
+</mapper>

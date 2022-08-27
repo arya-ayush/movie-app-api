@@ -8,26 +8,26 @@
     </select>
 
     <insert id="insertMovie" parameterType="Youtube">
-        insert into movie (
-            videoId,
-            title,
-            description,
-            duration,
-            youtube_views_count,
-            publish_date,
-            thumbnail,
-            likes,
-            dislikes,
-            app_views_count
-        ) values (
-            #{videoId},
-            #{title},
-            #{description},
-            #{duration},
-            #{viewsCount},
-            #{publishDate},
-            #{}
-        )
+<!--        insert into movie (-->
+<!--            videoId,-->
+<!--            title,-->
+<!--            description,-->
+<!--            duration,-->
+<!--            youtube_views_count,-->
+<!--            publish_date,-->
+<!--            thumbnail,-->
+<!--            likes,-->
+<!--            dislikes,-->
+<!--            app_views_count-->
+<!--        ) values (-->
+<!--            #{videoId},-->
+<!--            #{title},-->
+<!--            #{description},-->
+<!--            #{duration},-->
+<!--            #{viewsCount},-->
+<!--            #{publishDate},-->
+<!--            #{}-->
+<!--        )-->
     </insert>
 
 </mapper>
