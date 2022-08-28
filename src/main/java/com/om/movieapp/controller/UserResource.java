@@ -37,7 +37,7 @@ public class UserResource {
             throw new ApplicationException(HttpStatus.INTERNAL_SERVER_ERROR_500,
                     new String(Messages.INTERNAL_SERVER_ERROR.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
         }
-        return Response.ok().build();
+        return Response.status(HttpStatus.OK_200, "Successful").build();
     }
 
 

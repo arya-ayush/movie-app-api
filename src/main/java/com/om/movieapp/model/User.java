@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User {
 
-    private int id;
+    private Integer id;
     private String uuid;
     private String version;
-    private int versionCode;
+    private Integer versionCode;
     private String device;
     private String locale;
     private boolean showTutorial;
