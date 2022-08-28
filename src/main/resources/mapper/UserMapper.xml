@@ -21,6 +21,7 @@
 
     <select id="getUser" resultType="User" parameterType="String">
         SELECT
+            id,
             uuid,
             app_version as version,
             version_code as versionCode,
