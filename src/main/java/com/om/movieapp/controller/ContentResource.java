@@ -32,4 +32,15 @@ public class ContentResource {
         return Response.ok(highlightList).build();
     }
 
+
+    @GET
+    @Path("shorts")
+    public Response getShorts(@HeaderParam("apiKey") String apiKey) {
+        if (StringUtils.isEmpty(apiKey)) {
+            throw new ApplicationException(HttpStatus.BAD_REQUEST_400,
+                    new String(Messages.INCORRECT_PARAMETERS.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+        }
+        return Response.ok().build();
+    }
+
 }

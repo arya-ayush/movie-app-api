@@ -16,6 +16,7 @@ public class JerseyConfiguration extends ResourceConfig {
     register(YoutubeScrapingResource.class);
     register(CompanyResource.class);
     register(ContentResource.class);
+    register(UserResource.class);
     register(AuthenticationResource.class);
     register(ResponseFilter.class);
   }
