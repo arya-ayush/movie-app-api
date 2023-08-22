@@ -34,7 +34,7 @@ public class MvUser {
     @Column(nullable = false)
     private Integer mobileNo;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @Column(nullable = false)
+
     private DeviceInfo device;
 
 }

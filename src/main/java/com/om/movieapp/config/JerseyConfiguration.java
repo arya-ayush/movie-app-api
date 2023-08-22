@@ -20,5 +20,6 @@ public class JerseyConfiguration extends ResourceConfig {
     register(AuthenticationResource.class);
     register(ResponseFilter.class);
     register(DeviceInfoResource.class);
+    register(AuthController.class);
   }
 }
