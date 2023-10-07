@@ -38,6 +38,7 @@ public class CompanyResource {
     app.setVersionCode(66);
     app.setPackageName("com.om.fullmovie");
     app.setVersion("4.5.0");
+    app.setLevelPlayEnabled(false);
     Company company = new Company();
     company.setName("Omtech");
     company.setOtherApps(otherApps);
