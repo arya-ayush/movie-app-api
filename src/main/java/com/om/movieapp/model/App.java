@@ -9,6 +9,15 @@ public class App {
   private String version;
   private Integer versionCode;
   private String packageName;
+  private boolean levelPlayEnabled;
+
+  public void setLevelPlayEnabled(boolean levelPlayEnabled) {
+    this.levelPlayEnabled = levelPlayEnabled;
+  }
+
+  public boolean isLevelPlayEnabled() {
+    return levelPlayEnabled;
+  }
 
   public String getName() {
     return name;
