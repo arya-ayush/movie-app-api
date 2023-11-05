@@ -35,9 +35,9 @@ public class CompanyResource {
     uChatApp.setName("Status Saver - All in One");
 //    otherApps.add(statusSaverApp);
     App app = new App();
-    app.setVersionCode(66);
+    app.setVersionCode(68);
     app.setPackageName("com.om.fullmovie");
-    app.setVersion("4.5.0");
+    app.setVersion("4.6.1");
     app.setLevelPlayEnabled(false);
     Company company = new Company();
     company.setName("Omtech");
