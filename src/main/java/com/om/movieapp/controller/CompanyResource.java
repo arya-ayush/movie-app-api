@@ -35,7 +35,7 @@ public class CompanyResource {
     uChatApp.setName("Status Saver - All in One");
 //    otherApps.add(statusSaverApp);
     App app = new App();
-    app.setVersionCode(78);
+    app.setVersionCode(77);
     app.setPackageName("com.om.fullmovie");
     app.setVersion("5.0.1");
     app.setLevelPlayEnabled(false);
