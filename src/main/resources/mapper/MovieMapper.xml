@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.om.movieapp.dao.MovieDao">
+
+    <select id="findAll" resultType="Youtube">
+        select * from movie
+    </select>
+
+    <insert id="insertMovie" parameterType="Youtube">
+<!--        insert into movie (-->
+<!--            videoId,-->
+<!--            title,-->
+<!--            description,-->
+<!--            duration,-->
+<!--            youtube_views_count,-->
+<!--            publish_date,-->
+<!--            thumbnail,-->
+<!--            likes,-->
+<!--            dislikes,-->
+<!--            app_views_count-->
+<!--        ) values (-->
+<!--            #{videoId},-->
+<!--            #{title},-->
+<!--            #{description},-->
+<!--            #{duration},-->
+<!--            #{viewsCount},-->
+<!--            #{publishDate},-->
+<!--            #{}-->
+<!--        )-->
+    </insert>
+
+</mapper>
