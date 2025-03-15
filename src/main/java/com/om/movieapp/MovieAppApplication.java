@@ -10,7 +10,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
-import javax.sql.DataSource;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 @MapperScan("com.om.movieapp.dao")
@@ -20,16 +19,5 @@ public class MovieAppApplication extends SpringBootServletInitializer {
     SpringApplication.run(MovieAppApplication.class, args);
   }
 
-  static class MovieAppDbConfiguration {
 
-    /**
-     * This will bind the database properties from yml properties named as database
-     */
-    @Bean
-    @Primary
-    @ConfigurationProperties("database")
-    public DataSource movieAppDataSource() {
-      return DataSourceBuilder.create().build();
-    }
-  }
 }

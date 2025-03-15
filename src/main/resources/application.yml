@@ -1,14 +1,28 @@
+#spring:
+#  datasource:
+#    url: jdbc:postgres://ec2-52-86-73-86.compute-1.amazonaws.com:5432/d5lmhq6fu5pejc
+#    username: hjhsjdulzdcstk
+#    password: b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd
+#    driver: org.postgresql.Driver
+
+logging:
+  level:
+    root: INFO
+    com.om.movieapp: DEBUG
+
 spring:
   datasource:
-    url: jdbc:postgres://ec2-52-86-73-86.compute-1.amazonaws.com:5432/d5lmhq6fu5pejc
-    username: hjhsjdulzdcstk
-    password: b1a8f63287b59dcdf655531661fb54ed6f5e2553cec332fbe83e2fffc7d86acd
-    driver: org.postgresql.Driver
+    url: jdbc:mysql://database-1.cnmim6k2ovpb.ap-south-1.rds.amazonaws.com:3306/shorts
+    username: admin
+    password: moktyp-ceTro9-rysgyw
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
   mybatis:
     type-aliases-package: com.om.movieapp.model
     mapper-locations: classpath:/mapper/*xml
-
-
-
-
