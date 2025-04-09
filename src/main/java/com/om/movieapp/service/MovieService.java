@@ -129,7 +129,7 @@ public class MovieService {
 
 
         MovieDetail movie = new MovieDetail();
-        movie.setName("Dwwfwe");
+        movie.setName(movieDetail.getTitle());
         movie.setDescription(movieDetail.getPlot());
         movie.setMovieUrl(mp4Url);
         movie.setRuntime(movieDetail.getRuntime());
