@@ -29,5 +29,5 @@ jobs:
 
       - name: ✅ Start Spring Boot App
         run: |
-          nohup java -jar target/movie-app-0.0.1-SNAPSHOT.jar > movie-app.log 2>&1 &
+          nohup java -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
           echo "✅ Spring Boot app started successfully!"
