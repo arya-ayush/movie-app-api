@@ -18,7 +18,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
+      - name: 🧪 Test tmux functionality
+        run: |
+          /usr/bin/tmux new-session -d -s movieapp "echo 'Hello from tmux' > /tmp/tmux_test.log; sleep 60"
+      - name: 📂 Check tmux output
+        run: cat /tmp/tmux_test.log
       - name: 🛠️ Build Spring Boot App
         run: ./mvnw clean package -DskipTests
 
