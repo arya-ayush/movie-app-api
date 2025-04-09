@@ -26,9 +26,9 @@ jobs:
       - name: 🛠️ Build Spring Boot App
         run: ./mvnw clean package -DskipTests
 
-      - name: 🧹 Kill previous app session
+      - name: 🛑 Kill previous Spring Boot app (if any)
         run: |
-          /usr/bin/tmux kill-session -t movieapp || echo "No previous tmux session."
+          pkill -f 'movie-app-0.0.1-SNAPSHOT.jar' || echo "No previous app running."
 
       - name: 🔄 Restart Movie App Service
         run: |
