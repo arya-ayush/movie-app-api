@@ -32,10 +32,7 @@ jobs:
 
       - name: 🔄 Restart Movie App Service
         run: |
-          sudo systemctl stop movieapp || echo "No running service"
-          sudo systemctl start movieapp
-          sleep 5
-          sudo systemctl status movieapp
+          java -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar
 
       - name: 📋 Debug - List tmux sessions
         run: /usr/bin/tmux ls || echo "No tmux sessions"
