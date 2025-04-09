@@ -32,9 +32,7 @@ jobs:
 
       - name: 🔄 Restart Movie App Service
         run: |
-          nohup /home/ubuntu/actions-runner/_work/_tool/Java_Temurin-Hotspot_jdk/17.0.14-7/x64/bin/java \
-          -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar \
-          > /home/ubuntu/app.log 2>&1 &
+          nohup java -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar > /home/ubuntu/app.log 2>&1 &
 
       - name: 📋 Debug - List tmux sessions
         run: /usr/bin/tmux ls || echo "No tmux sessions"
