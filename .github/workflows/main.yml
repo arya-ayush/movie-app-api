@@ -27,7 +27,8 @@ jobs:
         run: |
           pkill -f movie-app-0.0.1-SNAPSHOT.jar || echo "No process found."
 
-      - name: ✅ Start Spring Boot App
+      - name: ✅ Start Spring Boot App in tmux session
         run: |
-          nohup java -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
-          echo "✅ Spring Boot app started successfully!"
+          tmux kill-session -t movieapp || true
+          tmux new-session -d -s movieapp "java -jar target/movie-app-0.0.1-SNAPSHOT.jar > movie-app.log 2>&1"
+          echo "✅ App is running inside tmux session: movieapp"
