@@ -1,6 +1,6 @@
 <configuration>
 
-  <property name="LOG_PATH" value="/Users/divyanshu/Documents/API/logs" />
+  <property name="LOG_PATH" value="logs" />
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
