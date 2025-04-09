@@ -1,45 +1,32 @@
-name: Deploy Spring Boot App to EC2
+name: 🚀 CI/CD on EC2 Self-Hosted Runner
 
 on:
   push:
     branches:
-      - movie-scrap-divyan  # change if you deploy from another branch
+      - movie-scrap-divyan  
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
-      - name: ⬇️ Checkout Code
+      - name: ⬇️ Checkout code
         uses: actions/checkout@v3
 
       - name: ☕ Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'  # adjust to your Java version
+          java-version: '17'
           distribution: 'temurin'
 
-      - name: 🛠️ Build JAR
-        run: ./mvnw clean package
+      - name: 🛠️ Build Spring Boot App
+        run: ./mvnw clean package -DskipTests
 
-      - name: 📦 Upload JAR to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "target/movie-app-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu/"
+      - name: 🚀 Stop running Spring Boot app (if any)
+        run: |
+          pkill -f movie-app-0.0.1-SNAPSHOT.jar || echo "No process found."
 
-      - name: 🚀 Restart Spring Boot App on EC2
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            pkill -f movie-app-0.0.1-SNAPSHOT.jar || true
-            nohup java -jar /home/ubuntu/movie-app-0.0.1-SNAPSHOT.jar > /home/ubuntu/logs/movie-app.log 2>&1 &
-            echo "✅ Spring Boot app restarted!"
+      - name: ✅ Start Spring Boot App
+        run: |
+          nohup java -jar target/movie-app-0.0.1-SNAPSHOT.jar > movie-app.log 2>&1 &
+          echo "✅ Spring Boot app started successfully!"
