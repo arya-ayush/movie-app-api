@@ -26,10 +26,12 @@ jobs:
         run: |
           /usr/bin/tmux kill-session -t movieapp || echo "No previous tmux session."
 
-      - name: ✅ Start Spring Boot App with tmux
+      - name: 🔄 Restart Movie App Service
         run: |
-          /usr/bin/tmux new-session -d -s movieapp "java -jar /home/ubuntu/actions-runner/_work/movie-app-api/movie-app-api/target/movie-app-0.0.1-SNAPSHOT.jar > app.log 2>&1"
-          echo " Spring Boot app started successfully!"
+          sudo systemctl stop movieapp || echo "No running service"
+          sudo systemctl start movieapp
+          sleep 5
+          sudo systemctl status movieapp
 
       - name: 📋 Debug - List tmux sessions
         run: /usr/bin/tmux ls || echo "No tmux sessions"
