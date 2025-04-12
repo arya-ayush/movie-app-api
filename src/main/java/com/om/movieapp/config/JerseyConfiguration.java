@@ -18,6 +18,7 @@ public class JerseyConfiguration extends ResourceConfig {
     register(ContentResource.class);
     register(AuthenticationResource.class);
     register(MovieResource.class);
+    register(UserController.class);
     register(ResponseFilter.class);
   }
 }

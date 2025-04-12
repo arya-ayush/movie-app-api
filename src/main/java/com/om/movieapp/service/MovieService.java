@@ -43,12 +43,7 @@ public class MovieService {
     private MovieLogDao movieDao;
 
 
-//    @PersistenceContext
 
-//    @Transactional
-//    public void saveMovie(MovieDetail movie) {
-//        entityManager.persist(movie);
-//    }
     public Map<String, String> fetchBollywoodMovies(final String year) {
         final ExecutorService executorService = Executors.newFixedThreadPool(5);
         final Map<String, String> movieMp4Map = new HashMap<>();
@@ -129,7 +124,7 @@ public class MovieService {
 
 
         MovieDetail movie = new MovieDetail();
-        movie.setName("njnjn");
+        movie.setName(movie.getName());
         movie.setDescription(movieDetail.getPlot());
         movie.setMovieUrl(mp4Url);
         movie.setRuntime(movieDetail.getRuntime());
