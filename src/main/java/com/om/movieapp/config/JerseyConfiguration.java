@@ -20,5 +20,6 @@ public class JerseyConfiguration extends ResourceConfig {
     register(MovieResource.class);
     register(UserController.class);
     register(ResponseFilter.class);
+    register(FileController.class);
   }
 }
