@@ -35,7 +35,6 @@ public class FileController {
 
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // Create temp file
             File tempFile = File.createTempFile("upload-", StringUtils.cleanPath(file.getOriginalFilename()));
             file.transferTo(tempFile);
 
