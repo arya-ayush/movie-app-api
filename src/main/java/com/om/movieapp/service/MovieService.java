@@ -54,6 +54,7 @@ public class MovieService {
                     Map<String, String> movieData = new HashMap<>();
                     movieData.put("name", movie.getName());
                     movieData.put("poster", movie.getPosterUrl());
+                    movieData.put("desc", movie.getDescription());
                     movieData.put("url", movie.getMovieUrl());
                     movies.add(movieData);
                 }
