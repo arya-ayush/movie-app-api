@@ -22,7 +22,9 @@ import org.springframework.util.CollectionUtils;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -43,6 +45,23 @@ public class MovieService {
     private MovieLogDao movieDao;
 
 
+    public List<Map<String, String>> fetchFeaturedMovies() {
+        final List<Map<String, String>> movies = new ArrayList<>();
+        try {
+            List<MovieDetail> featuredMovies = movieDao.fetchFeaturedMovies();
+            for (MovieDetail movie : featuredMovies) {
+                if (movie.getName() != null && movie.getMovieUrl() != null) {
+                    Map<String, String> movieData = new HashMap<>();
+                    movieData.put("name", movie.getName());
+                    movieData.put("url", movie.getMovieUrl());
+                    movies.add(movieData);
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Failed to process error {}", ExceptionUtils.getStackTrace(e));
+        }
+        return movies;
+    }
 
     public Map<String, String> fetchBollywoodMovies(final String year) {
         final ExecutorService executorService = Executors.newFixedThreadPool(5);

@@ -4,7 +4,12 @@ package com.om.movieapp.repository;
 import com.om.movieapp.model.omdb.MovieDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class MovieLogDao {
@@ -31,5 +36,30 @@ public class MovieLogDao {
                 movie.getStatus(),
                 movie.isFeaturedFlag()
         );
+    }
+    public List<MovieDetail> fetchFeaturedMovies() {
+        String sql = "SELECT * FROM movies";
+
+        return jdbcTemplate.query(sql, new RowMapper<MovieDetail>() {
+            @Override
+            public MovieDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+                MovieDetail movie = new MovieDetail();
+                movie.setName(rs.getString("name"));
+                movie.setDescription(rs.getString("description"));
+                movie.setTrailerUrl(rs.getString("trailer_url"));
+                movie.setMovieUrl(rs.getString("movie_url"));
+                movie.setPosterUrl(rs.getString("poster_url"));
+                movie.setBackdropUrl(rs.getString("backdrop_url"));
+                movie.setGenre(rs.getString("genre"));
+                movie.setRuntime(rs.getString("runtime"));
+                movie.setReleaseDate(rs.getString("release_date"));
+                movie.setTmdbId(rs.getString("tmdb_id"));
+                movie.setDeleteFlag(rs.getBoolean("delete_flag"));
+                movie.setTagline(rs.getString("tagline"));
+                movie.setStatus(rs.getString("status"));
+                movie.setFeaturedFlag(rs.getBoolean("featured_flag"));
+                return movie;
+            }
+        });
     }
 }

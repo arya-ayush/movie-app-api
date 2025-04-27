@@ -40,4 +40,14 @@ public class MovieResource {
         return Response.ok(movieService.fetchHollywoodMovies(year)).build();
     }
 
+    @POST
+    @Path("/scrap/featured")
+    public Response getFeaturedMovies(@HeaderParam("apiKey") String apiKey) {
+        if (StringUtils.isEmpty(apiKey)) {
+            throw new ApplicationException(HttpStatus.BAD_REQUEST_400,
+                    new String(Messages.INCORRECT_PARAMETERS.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+        }
+        return Response.ok(movieService.fetchFeaturedMovies()).build();
+    }
+
 }

@@ -21,30 +21,30 @@ import java.io.IOException;
 @Consumes(MediaType.MULTIPART_FORM_DATA)
 
 public class FileController {
-
-    private final S3Service s3Service;
-
-    @Autowired
-    public FileController(S3Service s3Service) {
-        this.s3Service = s3Service;
-    }
-
-
-    @POST
-    @PostMapping("/profile")
-
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            File tempFile = File.createTempFile("upload-", StringUtils.cleanPath(file.getOriginalFilename()));
-            file.transferTo(tempFile);
-
-            // Upload to S3
-            s3Service.uploadFile(tempFile, "uploads/" + tempFile.getName());
-
-            return ResponseEntity.ok("File uploaded successfully!");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("File upload failed: " + e.getMessage());
-        }
-    }
+//
+//    private final S3Service s3Service;
+//
+//    @Autowired
+//    public FileController(S3Service s3Service) {
+//        this.s3Service = s3Service;
+//    }
+//
+//
+//    @POST
+//    @PostMapping("/profile")
+//
+//    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+//        try {
+//            File tempFile = File.createTempFile("upload-", StringUtils.cleanPath(file.getOriginalFilename()));
+//            file.transferTo(tempFile);
+//
+//            // Upload to S3
+//            s3Service.uploadFile(tempFile, "uploads/" + tempFile.getName());
+//
+//            return ResponseEntity.ok("File uploaded successfully!");
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("File upload failed: " + e.getMessage());
+//        }
+//    }
 }
