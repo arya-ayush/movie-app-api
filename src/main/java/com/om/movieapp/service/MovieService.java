@@ -82,11 +82,13 @@ public class MovieService {
 
             // Wrap into desired JSON array-like format
             Map<String, Object> bollywoodWrapper = new HashMap<>();
-            bollywoodWrapper.put("cat", "bollywoodMovies");
+            bollywoodWrapper.put("cat", "Bollywood Movies");
+            bollywoodWrapper.put("id", 2);
             bollywoodWrapper.put("movies", bollywoodList);
 
             Map<String, Object> hollywoodWrapper = new HashMap<>();
-            hollywoodWrapper.put("cat", "hollywoodMovies");
+            hollywoodWrapper.put("cat", "Hollywood Movies");
+            bollywoodWrapper.put("id", 1);
             hollywoodWrapper.put("movies", hollywoodList);
 
             movieList.add(hollywoodWrapper);
@@ -111,26 +113,7 @@ public class MovieService {
         result.put("movieList", movieList); // This is now a List<...>
         return result;
     }
-//
-//    public List<Map<String, String>> fetchFeaturedMovies() {
-//        final List<Map<String, String>> movies = new ArrayList<>();
-//        try {
-//            List<MovieDetail> featuredMovies = movieDao.fetchFeaturedMovies();
-//            for (MovieDetail movie : featuredMovies) {
-//                if (movie.getName() != null && movie.getMovieUrl() != null) {
-//                    Map<String, String> movieData = new HashMap<>();
-//                    movieData.put("name", movie.getName());
-//                    movieData.put("poster", movie.getPosterUrl());
-//                    movieData.put("desc", movie.getDescription());
-//                    movieData.put("url", movie.getMovieUrl());
-//                    movies.add(movieData);
-//                }
-//            }
-//        } catch (Exception e) {
-//            LOG.error("Failed to process error {}", ExceptionUtils.getStackTrace(e));
-//        }
-//        return movies;
-//    }
+
 
     public Map<String, String> fetchBollywoodMovies(final String year) {
         final ExecutorService executorService = Executors.newFixedThreadPool(5);
