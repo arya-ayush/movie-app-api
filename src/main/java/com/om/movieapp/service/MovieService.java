@@ -48,61 +48,56 @@ public class MovieService {
     public Map<String, Object> fetchFeaturedMovies() {
         final Map<String, Object> result = new HashMap<>();
         final List<Map<String, String>> carouselList = new ArrayList<>();
-//        final List<Map<String, String>> movieList = new ArrayList<>();
-        List<Map<String, String>> bollywoodList = new ArrayList<>();
-        List<Map<String, String>> hollywoodList = new ArrayList<>();
-        Map<String, Object> movieList = new HashMap<>();
+        final List<Map<String, Object>> movieList = new ArrayList<>();
         final Map<Integer, String> typeMap = new HashMap<>();
         final Map<Integer, String> categoryMap = new HashMap<>();
 
         try {
-            // Fetch all featured movies
-
             int carouselCount = 0;
-
             List<MovieDetail> featuredMovies = movieDao.fetchFeaturedMovies();
+
+            List<Map<String, String>> bollywoodList = new ArrayList<>();
+            List<Map<String, String>> hollywoodList = new ArrayList<>();
 
             for (MovieDetail movie : featuredMovies) {
                 if (movie.getName() != null && movie.getMovieUrl() != null) {
-                    LOG.debug("Movie: {} | CategoryId: {}", movie.getName(), movie.getCategoryId());
-
                     Map<String, String> movieData = new HashMap<>();
                     movieData.put("name", movie.getName());
                     movieData.put("poster", movie.getPosterUrl());
                     movieData.put("desc", movie.getDescription());
                     movieData.put("url", movie.getMovieUrl());
 
-                    // Populate first 5 for carousel
                     if (carouselCount < 5) {
                         carouselList.add(movieData);
                         carouselCount++;
                     }
 
-                    // Bollywood movies (category_id = 2)
                     if (movie.getCategoryId() == 2) {
                         bollywoodList.add(movieData);
-                    }
-
-                    // Hollywood movies (category_id = 1)
-                    if (movie.getCategoryId() == 1) {
+                    } else if (movie.getCategoryId() == 1) {
                         hollywoodList.add(movieData);
                     }
                 }
             }
 
-            // Put bollywood and hollywood lists inside movieList
+            // Wrap into desired JSON array-like format
+            Map<String, Object> bollywoodWrapper = new HashMap<>();
+            bollywoodWrapper.put("cat", "bollywoodMovies");
+            bollywoodWrapper.put("movies", bollywoodList);
 
-            movieList.put("bollywoodMovies", bollywoodList);
-            movieList.put("hollywoodMovies", hollywoodList);
+            Map<String, Object> hollywoodWrapper = new HashMap<>();
+            hollywoodWrapper.put("cat", "hollywoodMovies");
+            hollywoodWrapper.put("movies", hollywoodList);
+
+            movieList.add(hollywoodWrapper);
+            movieList.add(bollywoodWrapper);
 
             // Load type and category maps
-            List<MovieType> allTypes = movieDao.fetchMovieTypes(); // assumes JPA
-            for (MovieType type : allTypes) {
+            for (MovieType type : movieDao.fetchMovieTypes()) {
                 typeMap.put(type.getId(), type.getName());
             }
 
-            List<MovieCategory> allCategories = movieDao.fetchMovieCategories();
-            for (MovieCategory category : allCategories) {
+            for (MovieCategory category : movieDao.fetchMovieCategories()) {
                 categoryMap.put(category.getId(), category.getName());
             }
 
@@ -113,7 +108,7 @@ public class MovieService {
         result.put("carouselList", carouselList);
         result.put("movieType", typeMap);
         result.put("movieCategory", categoryMap);
-        result.put("movieList", movieList);
+        result.put("movieList", movieList); // This is now a List<...>
         return result;
     }
 //
