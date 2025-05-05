@@ -66,6 +66,12 @@ public class MovieDetail {
     @Column(name = "featured_flag", nullable = false)
     private boolean featuredFlag = false;
 
+    @Column(name = "category_id", nullable = false)
+    private Integer categoryId;
+
+    @Column(name = "type_id", nullable = false)
+    private Integer typeId;
+
     @PreUpdate
     public void updateTimestamp() {
         this.modifiedDate = LocalDateTime.now();

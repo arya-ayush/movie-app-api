@@ -1,7 +1,9 @@
 package com.om.movieapp.repository;
 
 
+import com.om.movieapp.model.omdb.MovieCategory;
 import com.om.movieapp.model.omdb.MovieDetail;
+import com.om.movieapp.model.omdb.MovieType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,8 +59,36 @@ public class MovieLogDao {
                 movie.setDeleteFlag(rs.getBoolean("delete_flag"));
                 movie.setTagline(rs.getString("tagline"));
                 movie.setStatus(rs.getString("status"));
+                movie.setCategoryId(Integer.valueOf(rs.getString("category_id")));
+                movie.setTypeId(Integer.valueOf(rs.getString("type_id")));
                 movie.setFeaturedFlag(rs.getBoolean("featured_flag"));
                 return movie;
+            }
+        });
+    }
+    public List<MovieType> fetchMovieTypes() {
+        String sql = "SELECT * FROM movie_types";
+
+        return jdbcTemplate.query(sql, new RowMapper<MovieType>() {
+            @Override
+            public MovieType mapRow(ResultSet rs, int rowNum) throws SQLException {
+                MovieType type = new MovieType();
+                type.setId(rs.getInt("id"));
+                type.setName(rs.getString("name"));
+                return type;
+            }
+        });
+    }
+    public List<MovieCategory> fetchMovieCategories() {
+        String sql = "SELECT * FROM movie_categories";
+
+        return jdbcTemplate.query(sql, new RowMapper<MovieCategory>() {
+            @Override
+            public MovieCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+                MovieCategory category = new MovieCategory();
+                category.setId(rs.getInt("id"));
+                category.setName(rs.getString("name"));
+                return category;
             }
         });
     }

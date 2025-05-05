@@ -1,6 +1,8 @@
 package com.om.movieapp.service;
 
+import com.om.movieapp.model.omdb.MovieCategory;
 import com.om.movieapp.model.omdb.MovieDetail;
+import com.om.movieapp.model.omdb.MovieType;
 import com.om.movieapp.model.omdb.SearchResponse;
 
 import com.om.movieapp.model.tmdb.MovieSearchResponse;
@@ -43,27 +45,97 @@ public class MovieService {
     private OmdbService omdbService;
     @Autowired
     private MovieLogDao movieDao;
+    public Map<String, Object> fetchFeaturedMovies() {
+        final Map<String, Object> result = new HashMap<>();
+        final List<Map<String, String>> carouselList = new ArrayList<>();
+//        final List<Map<String, String>> movieList = new ArrayList<>();
+        List<Map<String, String>> bollywoodList = new ArrayList<>();
+        List<Map<String, String>> hollywoodList = new ArrayList<>();
+        Map<String, Object> movieList = new HashMap<>();
+        final Map<Integer, String> typeMap = new HashMap<>();
+        final Map<Integer, String> categoryMap = new HashMap<>();
 
-
-    public List<Map<String, String>> fetchFeaturedMovies() {
-        final List<Map<String, String>> movies = new ArrayList<>();
         try {
+            // Fetch all featured movies
+
+            int carouselCount = 0;
+
             List<MovieDetail> featuredMovies = movieDao.fetchFeaturedMovies();
+
             for (MovieDetail movie : featuredMovies) {
                 if (movie.getName() != null && movie.getMovieUrl() != null) {
+                    LOG.debug("Movie: {} | CategoryId: {}", movie.getName(), movie.getCategoryId());
+
                     Map<String, String> movieData = new HashMap<>();
                     movieData.put("name", movie.getName());
                     movieData.put("poster", movie.getPosterUrl());
                     movieData.put("desc", movie.getDescription());
                     movieData.put("url", movie.getMovieUrl());
-                    movies.add(movieData);
+
+                    // Populate first 5 for carousel
+                    if (carouselCount < 5) {
+                        carouselList.add(movieData);
+                        carouselCount++;
+                    }
+
+                    // Bollywood movies (category_id = 2)
+                    if (movie.getCategoryId() == 2) {
+                        bollywoodList.add(movieData);
+                    }
+
+                    // Hollywood movies (category_id = 1)
+                    if (movie.getCategoryId() == 1) {
+                        hollywoodList.add(movieData);
+                    }
                 }
             }
+
+            // Put bollywood and hollywood lists inside movieList
+
+            movieList.put("bollywoodMovies", bollywoodList);
+            movieList.put("hollywoodMovies", hollywoodList);
+
+            // Load type and category maps
+            List<MovieType> allTypes = movieDao.fetchMovieTypes(); // assumes JPA
+            for (MovieType type : allTypes) {
+                typeMap.put(type.getId(), type.getName());
+            }
+
+            List<MovieCategory> allCategories = movieDao.fetchMovieCategories();
+            for (MovieCategory category : allCategories) {
+                categoryMap.put(category.getId(), category.getName());
+            }
+
         } catch (Exception e) {
-            LOG.error("Failed to process error {}", ExceptionUtils.getStackTrace(e));
+            LOG.error("Failed to process featured movies {}", ExceptionUtils.getStackTrace(e));
         }
-        return movies;
+
+        result.put("carouselList", carouselList);
+        result.put("movieType", typeMap);
+        result.put("movieCategory", categoryMap);
+        result.put("movieList", movieList);
+        return result;
     }
+//
+//    public List<Map<String, String>> fetchFeaturedMovies() {
+//        final List<Map<String, String>> movies = new ArrayList<>();
+//        try {
+//            List<MovieDetail> featuredMovies = movieDao.fetchFeaturedMovies();
+//            for (MovieDetail movie : featuredMovies) {
+//                if (movie.getName() != null && movie.getMovieUrl() != null) {
+//                    Map<String, String> movieData = new HashMap<>();
+//                    movieData.put("name", movie.getName());
+//                    movieData.put("poster", movie.getPosterUrl());
+//                    movieData.put("desc", movie.getDescription());
+//                    movieData.put("url", movie.getMovieUrl());
+//                    movies.add(movieData);
+//                }
+//            }
+//        } catch (Exception e) {
+//            LOG.error("Failed to process error {}", ExceptionUtils.getStackTrace(e));
+//        }
+//        return movies;
+//    }
 
     public Map<String, String> fetchBollywoodMovies(final String year) {
         final ExecutorService executorService = Executors.newFixedThreadPool(5);
