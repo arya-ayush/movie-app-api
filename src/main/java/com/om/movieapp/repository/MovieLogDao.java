@@ -60,7 +60,8 @@ public class MovieLogDao {
                 movie.setTagline(rs.getString("tagline"));
                 movie.setStatus(rs.getString("status"));
                 movie.setCategoryId(Integer.valueOf(rs.getString("category_id")));
-                movie.setTypeId(Integer.valueOf(rs.getString("type_id")));
+
+                 movie.setTypeId(Integer.valueOf(rs.getString("type_id")));
                 movie.setFeaturedFlag(rs.getBoolean("featured_flag"));
                 return movie;
             }
