@@ -4,6 +4,7 @@ import com.om.movieapp.model.UserDTO;
 import com.om.movieapp.repository.UserLogDao;
 import com.om.movieapp.service.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.ws.rs.*;
@@ -25,20 +26,21 @@ public class UserController {
         User user = new User();
 
         try {
-            if (userLogDao.userExists(user.getUser_id(), user.getEmail())) {
-                User existingUser = userLogDao.getUserByIdOrEmail(user.getUser_id(), user.getEmail());
-                return ResponseEntity.status(200).body(existingUser);
-            }else{
 
-                user.setUser_id(userDto.getUser_id());   // Transferring the user ID
+            if (userLogDao.userExists(userDto.getUser_id(), userDto.getEmail())) {
+                // User already exists — return 200 OK with the existing user
+                User existingUser = userLogDao.getUserByIdOrEmail(userDto.getUser_id(), userDto.getEmail());
+                return ResponseEntity.ok(existingUser);  // HTTP 200 OK
+            } else {
+                // Create new user — return 201 Created
+                user.setUser_id(userDto.getUser_id());
                 user.setName(userDto.getName());
                 user.setEmail(userDto.getEmail());
                 user.setPhoto_url(userDto.getPhoto_url());
 
                 userLogDao.saveUser(user);
 
-
-                return ResponseEntity.ok("User saved successfully");
+                return ResponseEntity.status(HttpStatus.CREATED).body("User saved successfully");  // HTTP 201 Created
             }
 
         } catch (Exception e) {
