@@ -47,6 +47,7 @@ public class MovieLogDao {
             public MovieDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
                 MovieDetail movie = new MovieDetail();
                 movie.setName(rs.getString("name"));
+                movie.setMovie_id(rs.getInt("id"));
                 movie.setDescription(rs.getString("description"));
                 movie.setTrailerUrl(rs.getString("trailer_url"));
                 movie.setMovieUrl(rs.getString("movie_url"));
@@ -59,6 +60,8 @@ public class MovieLogDao {
                 movie.setDeleteFlag(rs.getBoolean("delete_flag"));
                 movie.setTagline(rs.getString("tagline"));
                 movie.setStatus(rs.getString("status"));
+                movie.setBuy_coins(rs.getInt("buy_coins"));
+
                 movie.setCategoryId(Integer.valueOf(rs.getString("category_id")));
 
                  movie.setTypeId(Integer.valueOf(rs.getString("type_id")));

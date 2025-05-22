@@ -42,12 +42,14 @@ public class MovieResource {
 
     @POST
     @Path("/scrap/featured")
-    public Response getFeaturedMovies(@HeaderParam("apiKey") String apiKey) {
-        if (StringUtils.isEmpty(apiKey)) {
+    public Response getFeaturedMovies(@HeaderParam("apiKey") String apiKey,
+                                      @QueryParam("user_id") String userId) {
+        if (StringUtils.isEmpty(apiKey) || StringUtils.isEmpty(userId)) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST_400,
                     new String(Messages.INCORRECT_PARAMETERS.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
         }
-        return Response.ok(movieService.fetchFeaturedMovies()).build();
+
+        return Response.ok(movieService.fetchFeaturedMovies(userId)).build();
     }
 
 }

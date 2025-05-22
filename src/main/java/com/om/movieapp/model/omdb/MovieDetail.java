@@ -16,7 +16,10 @@ public class MovieDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+    @Id
+    @Column(name = "id")
+    private int movie_id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -62,6 +65,11 @@ public class MovieDetail {
 
     @Column(name = "status")
     private String status;
+
+
+    @Column(name = "buy_coins")
+    private int buy_coins;
+
 
     @Column(name = "featured_flag", nullable = false)
     private boolean featuredFlag = false;

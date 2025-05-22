@@ -1,5 +1,6 @@
 package com.om.movieapp.service;
 
+import com.om.movieapp.dao.PurchaseDao;
 import com.om.movieapp.model.omdb.MovieCategory;
 import com.om.movieapp.model.omdb.MovieDetail;
 import com.om.movieapp.model.omdb.MovieType;
@@ -24,10 +25,7 @@ import org.springframework.util.CollectionUtils;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,7 +43,10 @@ public class MovieService {
     private OmdbService omdbService;
     @Autowired
     private MovieLogDao movieDao;
-    public Map<String, Object> fetchFeaturedMovies() {
+    @Autowired
+    private PurchaseDao purchaseDao;
+
+    public Map<String, Object> fetchFeaturedMovies(String userId) {
         final Map<String, Object> result = new HashMap<>();
         final List<Map<String, String>> carouselList = new ArrayList<>();
         final List<Map<String, Object>> movieList = new ArrayList<>();
@@ -58,14 +59,19 @@ public class MovieService {
 
             List<Map<String, String>> bollywoodList = new ArrayList<>();
             List<Map<String, String>> hollywoodList = new ArrayList<>();
+            Set<Integer> purchasedMovieIds = purchaseDao.getPurchasedMovieIdsForUser(userId);
 
             for (MovieDetail movie : featuredMovies) {
                 if (movie.getName() != null && movie.getMovieUrl() != null) {
                     Map<String, String> movieData = new HashMap<>();
                     movieData.put("name", movie.getName());
+                    movieData.put("id", String.valueOf(movie.getMovie_id()));
                     movieData.put("poster", movie.getPosterUrl());
                     movieData.put("desc", movie.getDescription());
+                    movieData.put("buyCoins", String.valueOf(movie.getBuy_coins()));
                     movieData.put("url", movie.getMovieUrl());
+                    movieData.put("isPurchased", String.valueOf(purchasedMovieIds.contains(movie.getMovie_id())));
+
 
                     if (carouselCount < 5) {
                         carouselList.add(movieData);
