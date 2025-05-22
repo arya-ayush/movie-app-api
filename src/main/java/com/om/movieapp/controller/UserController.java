@@ -37,7 +37,7 @@ public class UserController {
                 user.setName(userDto.getName());
                 user.setEmail(userDto.getEmail());
                 user.setPhoto_url(userDto.getPhoto_url());
-
+                user.setCoins(100);
                 userLogDao.saveUser(user);
 
                 return ResponseEntity.status(HttpStatus.CREATED).body("User saved successfully");  // HTTP 201 Created

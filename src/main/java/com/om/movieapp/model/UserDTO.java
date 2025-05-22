@@ -4,6 +4,7 @@ public class UserDTO {
     private String user_id;
     private String name;
     private String email;
+    private int coins;
     private String photo_url;
 
     // Getters and Setters
@@ -15,6 +16,13 @@ public class UserDTO {
         this.user_id = user_id;
     }
 
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
     public String getName() {
         return name;
     }

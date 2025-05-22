@@ -15,14 +15,15 @@ public class UserLogDao {
     private JdbcTemplate jdbcTemplate;
 
     public void saveUser(User user) {
-        String sql = "INSERT INTO users (user_id, name, email, photo_url) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (user_id, name, email, photo_url,coins) " +
+                "VALUES (?, ?, ?, ?,?)";
 
         jdbcTemplate.update(sql,
                 user.getUser_id(),
                 user.getName(),
                 user.getEmail(),
-                user.getPhoto_url()
+                user.getPhoto_url(),
+                user.getCoins()
         );
     }
     public boolean userExists(String userId, String email) {
@@ -39,6 +40,8 @@ public class UserLogDao {
             user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
             user.setPhoto_url(rs.getString("photo_url"));
+            user.setCoins(rs.getInt("coins"));
+
             return user;
         });
 
