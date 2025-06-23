@@ -88,17 +88,23 @@ public class MovieService {
 
             // Wrap into desired JSON array-like format
             Map<String, Object> bollywoodWrapper = new HashMap<>();
-            bollywoodWrapper.put("cat", "Bollywood Movies");
-            bollywoodWrapper.put("id", 2);
+            bollywoodWrapper.put("cat", "Top Bollywood Movies");
+            bollywoodWrapper.put("id", 3);
             bollywoodWrapper.put("movies", bollywoodList);
 
             Map<String, Object> hollywoodWrapper = new HashMap<>();
-            hollywoodWrapper.put("cat", "Hollywood Movies");
+            hollywoodWrapper.put("cat", "Top Hollywood Movies");
+            bollywoodWrapper.put("id", 2);
+            hollywoodWrapper.put("movies", hollywoodList);
+
+            Map<String, Object> topSearchesWrapper = new HashMap<>();
+            hollywoodWrapper.put("cat", "Top Searches");
             bollywoodWrapper.put("id", 1);
             hollywoodWrapper.put("movies", hollywoodList);
 
             movieList.add(hollywoodWrapper);
             movieList.add(bollywoodWrapper);
+            movieList.add(topSearchesWrapper);
 
             // Load type and category maps
             for (MovieType type : movieDao.fetchMovieTypes()) {

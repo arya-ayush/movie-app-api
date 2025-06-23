@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/app
+
+hooks:
+  AfterInstall:
+    - location: scripts/start.sh
+      timeout: 60
+      runas: ubuntu
+  ApplicationStop:
+    - location: scripts/postScript.sh
+      timeout: 30
+      runas: ubuntu
