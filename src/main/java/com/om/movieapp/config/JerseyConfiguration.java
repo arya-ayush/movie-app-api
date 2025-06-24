@@ -22,5 +22,6 @@ public class JerseyConfiguration extends ResourceConfig {
     register(ResponseFilter.class);
     register(FileController.class);
     register(PlayProductsController.class);
+    register(ShortsController.class);
   }
 }

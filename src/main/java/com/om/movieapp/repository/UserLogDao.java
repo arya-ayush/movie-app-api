@@ -2,6 +2,7 @@ package com.om.movieapp.repository;
 
 
 import com.om.movieapp.service.User;
+import com.om.movieapp.service.Videos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -49,5 +50,18 @@ public class UserLogDao {
             return null; // or throw custom exception or handle as you want
         }
         return users.get(0);
+    }
+    public List<Videos> getRandomVideo() {
+        String sql = "SELECT * FROM video ORDER BY RAND()";
+
+        List<Videos> videosList = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Videos video = new Videos();
+            video.setId(rs.getString("id"));
+            video.setName(rs.getString("description")); // Maybe use setDescription()
+            video.setVideo(rs.getString("video"));
+            return video;
+        });
+
+        return videosList.isEmpty() ? null : videosList;
     }
 }
