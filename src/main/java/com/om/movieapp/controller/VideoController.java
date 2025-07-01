@@ -24,17 +24,15 @@ import java.util.Map;
 public class VideoController {
 
     // 🔒 Replace these with your actual keys (for testing ONLY)
-    DefaultCredentialsProvider credentialsProvider = DefaultCredentialsProvider.create();
+   DefaultCredentialsProvider credentialsProvider = DefaultCredentialsProvider.create();
 
     private static final String BUCKET_NAME = "fullmoviesapp";
-
-
     @Autowired
     private UserLogDao videoSave;
-    private final S3Client s3 = S3Client.builder()
-            .region(Region.AP_SOUTH_1)
-            .credentialsProvider(DefaultCredentialsProvider.create())
-            .build();
+ private final S3Client s3 = S3Client.builder()
+    .region(Region.AP_SOUTH_1)  
+    .credentialsProvider(DefaultCredentialsProvider.create())
+    .build();
 
     @POST
     @Path("/upload")
