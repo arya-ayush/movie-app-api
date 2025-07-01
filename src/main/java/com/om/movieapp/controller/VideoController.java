@@ -6,6 +6,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -23,19 +24,15 @@ import java.util.Map;
 public class VideoController {
 
     // 🔒 Replace these with your actual keys (for testing ONLY)
-    AwsBasicCredentials awsCreds = AwsBasicCredentials.create(
-            System.getenv("AWS_ACCESS_KEY_ID"),
-            System.getenv("AWS_SECRET_ACCESS_KEY")
-    );
-
+   DefaultCredentialsProvider credentialsProvider = DefaultCredentialsProvider.create();
 
     private static final String BUCKET_NAME = "fullmoviesapp";
     @Autowired
     private UserLogDao videoSave;
-    private final S3Client s3 = S3Client.builder()
-            .region(Region.AP_SOUTH_1)  // Replace with your region
-            .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-            .build();
+ private final S3Client s3 = S3Client.builder()
+    .region(Region.AP_SOUTH_1)  
+    .credentialsProvider(DefaultCredentialsProvider.create())
+    .build();
 
     @POST
     @Path("/upload")
