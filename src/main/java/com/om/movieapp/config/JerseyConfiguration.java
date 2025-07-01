@@ -23,10 +23,10 @@ public class JerseyConfiguration extends ResourceConfig {
     register(FileController.class);
     register(PlayProductsController.class);
     register(ShortsController.class);
-    packages("com.om.movieapp.controller");
+    // packages("com.om.movieapp.controller");
 
-    // Multipart support
-    register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
+    // // Multipart support
+     register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
     register(VideoController.class);
 
   }

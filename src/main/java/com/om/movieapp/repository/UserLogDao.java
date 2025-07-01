@@ -62,7 +62,7 @@ public class UserLogDao {
         return users.get(0);
     }
     public List<Videos> getRandomVideo() {
-        String sql = "SELECT * FROM video ORDER BY RAND() LIMIT 1";
+        String sql = "SELECT * FROM video";
 
         List<Videos> videosList = jdbcTemplate.query(sql, (rs, rowNum) -> {
             Videos video = new Videos();
