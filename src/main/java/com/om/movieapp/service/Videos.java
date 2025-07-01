@@ -19,6 +19,9 @@ public class Videos {
     private String id;
 
     @Column(name = "description")
+    private String description;
+
+    @Column(name = "name")
     private String name;
 
     @Column(name = "video")

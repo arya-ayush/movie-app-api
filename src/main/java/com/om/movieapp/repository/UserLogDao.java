@@ -27,6 +27,16 @@ public class UserLogDao {
                 user.getCoins()
         );
     }
+
+    public void saveVideo(Videos video) {
+        String sql = "INSERT INTO video (video, name, description) VALUES (?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                video.getVideo(),       // video URL or file name
+                video.getName(),        // video name
+                video.getDescription()  // video description
+        );
+    }
     public boolean userExists(String userId, String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE user_id = ? OR email = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, userId, email);
