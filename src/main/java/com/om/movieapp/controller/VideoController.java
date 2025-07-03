@@ -17,7 +17,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Path("/shorts")
@@ -34,70 +36,105 @@ public class VideoController {
     .credentialsProvider(DefaultCredentialsProvider.create())
     .build();
 
-    @POST
+
+
+        @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response handleFileUploadUsingCurl(
-            @FormDataParam("file") InputStream fileInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileMetaData,  @FormDataParam("name") String name,
+        public Response handleFileUploadUsingCurl(
+            @FormDataParam("url") String url,
+            @FormDataParam("name") String name,
             @FormDataParam("description") String description) {
-
-        if (fileInputStream == null || fileMetaData == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("No file provided").build();
+        if (url == null || url.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("URL is required").build();
         }
 
-        Map<String, String> map = new HashMap<>();
-        String fileName = fileMetaData.getFileName();
-
-        map.put("fileName", fileName);
-        map.put("fileContentType", fileMetaData.getType());
-
-        // Save file locally
         File uploadDir = new File("uploads/");
         if (!uploadDir.exists()) uploadDir.mkdirs();
 
-        File targetFile = new File(uploadDir, fileName);
-        try (OutputStream out = new FileOutputStream(targetFile)) {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = fileInputStream.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
+        String fileName = null;
+        File downloadedFile = null;
+
+        try {
+            // yt-dlp command
+            List<String> command = Arrays.asList(
+                    "yt-dlp",
+                    "-f", "mp4",
+                    "-o", "uploads/%(title)s.%(ext)s",
+                    url
+            );
+
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+
+            // Read yt-dlp output
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
             }
-        } catch (IOException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Local save failed: " + e.getMessage()).build();
-        }
 
-        // Upload to S3
-        try (InputStream s3Stream = new FileInputStream(targetFile)) {
-            PutObjectRequest putReq = PutObjectRequest.builder()
-                    .bucket(BUCKET_NAME)
-                    .key("shorts/" + fileName)
-                    .contentType(fileMetaData.getType())
-                    .build();
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity("yt-dlp failed with exit code: " + exitCode).build();
+            }
 
-            s3.putObject(putReq, RequestBody.fromInputStream(s3Stream, targetFile.length()));
+            // Find latest file downloaded
+            File[] files = uploadDir.listFiles((dir, name1) -> name1.endsWith(".mp4"));
+            if (files == null || files.length == 0) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity("No MP4 file found after download").build();
+            }
+
+            // Get latest file
+            downloadedFile = Arrays.stream(files)
+                    .max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()))
+                    .orElse(null);
+
+            if (downloadedFile == null) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity("Could not determine downloaded file").build();
+            }
+
+            fileName = downloadedFile.getName();
+
+            // Upload to S3
+            try (InputStream s3Stream = new FileInputStream(downloadedFile)) {
+                PutObjectRequest putReq = PutObjectRequest.builder()
+                        .bucket(BUCKET_NAME)
+                        .key("shorts/" + fileName)
+                        .contentType("video/mp4")
+                        .build();
+
+                s3.putObject(putReq, RequestBody.fromInputStream(s3Stream, downloadedFile.length()));
+            }
+
+            // Save to DB
+            Videos shortVideo = new Videos();
+            shortVideo.setName(name);
+            shortVideo.setDescription(description);
+            shortVideo.setVideo("https://" + BUCKET_NAME + ".s3.amazonaws.com/shorts/" + fileName);
+            videoSave.saveVideo(shortVideo);
+
+            // Clean up
+            downloadedFile.delete();
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "YouTube video downloaded and uploaded to S3 successfully.");
+            response.put("s3Url", "https://" + BUCKET_NAME + ".s3.amazonaws.com/shorts/" + fileName);
+
+            return Response.ok(response).build();
+
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("S3 upload failed: " + e.getMessage()).build();
+                    .entity("Error: " + e.getMessage()).build();
         }
-
-        boolean deleted = targetFile.delete();
-        if (!deleted) {
-            map.put("warning", "Uploaded to S3, but failed to delete local file.");
-        }
-
-        Videos shortVideo = new Videos();
-        shortVideo.setName(name);
-        shortVideo.setDescription(description);
-        shortVideo.setVideo( "https://" + BUCKET_NAME + ".s3.amazonaws.com/shorts/" + fileName);
-
-
-        videoSave.saveVideo(shortVideo);
-        map.put("message", "File uploaded successfully to S3");
-        map.put("s3Url", "https://" + BUCKET_NAME + ".s3.amazonaws.com/shorts/" + fileName);
-
-        return Response.ok(map).build();
     }
+
 }
