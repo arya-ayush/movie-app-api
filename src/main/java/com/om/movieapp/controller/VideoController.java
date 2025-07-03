@@ -17,10 +17,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Path("/shorts")
 public class VideoController {
@@ -52,19 +49,20 @@ public class VideoController {
 
         File uploadDir = new File("uploads/");
         if (!uploadDir.exists()) uploadDir.mkdirs();
-
-        String fileName = null;
+            String fileName = UUID.randomUUID().toString() + ".mp4";
+            File outputFile = new File(uploadDir, fileName);
+//        String fileName = null;
         File downloadedFile = null;
+
 
         try {
             // yt-dlp command
             List<String> command = Arrays.asList(
                     "yt-dlp",
                     "-f", "mp4",
-                    "-o", "uploads/%(title)s.%(ext)s",
+                    "-o", outputFile.getAbsolutePath(),
                     url
             );
-
             ProcessBuilder pb = new ProcessBuilder(command);
             pb.redirectErrorStream(true);
             Process process = pb.start();
