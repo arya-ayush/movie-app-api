@@ -49,20 +49,23 @@ public class VideoController {
 
         File uploadDir = new File("uploads/");
         if (!uploadDir.exists()) uploadDir.mkdirs();
-            String fileName = UUID.randomUUID().toString() + ".mp4";
-            File outputFile = new File(uploadDir, fileName);
-//        String fileName = null;
+
+        String fileName = null;
         File downloadedFile = null;
 
 
         try {
             // yt-dlp command
+
+            String randomName = generateRandomString(10);  // e.g., "a7x92cfk9z"
+            String outputTemplate = "uploads/" + randomName + ".%(ext)s";
             List<String> command = Arrays.asList(
                     "yt-dlp",
                     "-f", "mp4",
-                    "-o", outputFile.getAbsolutePath(),
+                    "-o", outputTemplate,
                     url
             );
+
             ProcessBuilder pb = new ProcessBuilder(command);
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -134,5 +137,13 @@ public class VideoController {
                     .entity("Error: " + e.getMessage()).build();
         }
     }
-
+    private String generateRandomString(int length) {
+        String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
+    }
 }
